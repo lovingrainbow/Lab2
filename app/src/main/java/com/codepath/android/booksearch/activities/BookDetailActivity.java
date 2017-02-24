@@ -24,6 +24,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private ImageView ivBookCover;
     private TextView tvTitle;
     private TextView tvAuthor;
+    private Book book;
 
     private ShareActionProvider miShareAction;
     private Intent shareIntent;
@@ -37,7 +38,7 @@ public class BookDetailActivity extends AppCompatActivity {
         tvAuthor = (TextView) findViewById(R.id.tvAuthor);
 
         // Extract book object from intent extras
-        Book book = (Book) Parcels.unwrap(getIntent().getParcelableExtra("Book"));
+        book = (Book) Parcels.unwrap(getIntent().getParcelableExtra("Book"));
         // Use book object to populate data into views
         tvTitle.setText(book.getTitle());
         tvAuthor.setText(book.getAuthor());
@@ -60,7 +61,7 @@ public class BookDetailActivity extends AppCompatActivity {
         miShareAction = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, tvTitle.getText() );
+        shareIntent.putExtra(Intent.EXTRA_TEXT, book.getCoverUrl() );
         miShareAction.setShareIntent(shareIntent);
         return true;
     }
